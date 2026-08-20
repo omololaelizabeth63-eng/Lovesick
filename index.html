@@ -3,492 +3,668 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lovesick</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>Lovesick Detector</title>
 
 <style>
+*{box-sizing:border-box}
+
 body{
   margin:0;
-  font-family:Arial,sans-serif;
-  background:linear-gradient(160deg,#b89be8,#ffd8e8);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:linear-gradient(160deg,#b89be8,#ead5f6 55%,#ffd8e8);
   color:#5b3b82;
 }
 
-.app{
+.phone{
   max-width:430px;
   min-height:100vh;
   margin:auto;
-  padding:25px 18px;
+  padding:22px 18px 28px;
 }
 
-.logo{
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.icon{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:#ffffff66;
+  display:grid;
+  place-items:center;
+  font-size:21px;
+}
+
+.brand{
   text-align:center;
-  color:white;
+  margin:10px 0 18px;
+}
+
+.brand small{
+  display:block;
+  font-size:16px;
+  color:#fff;
+}
+
+.brand h1{
+  margin:3px 0;
   font-family:Georgia,serif;
-  font-size:50px;
-  margin:20px 0;
+  font-size:48px;
+  color:#fff;
+  line-height:.95;
+}
+
+.brand h1 span{
+  color:#f5a6c9;
+  font-style:italic;
+}
+
+.brand b{
+  letter-spacing:6px;
+  color:#fff;
+  font-size:12px;
+}
+
+.tag{
+  color:#fff;
+  margin-top:8px;
+  font-size:14px;
 }
 
 .card{
-  background:#ffffffdd;
-  padding:22px;
+  background:#ffffffd9;
+  border:1px solid #fff8;
   border-radius:25px;
-  margin:15px 0;
+  padding:22px;
+  margin:12px 0;
+  box-shadow:0 12px 30px #7c55a333;
 }
 
-h2{
-  margin-top:0;
+.hero h2{
+  margin:0 0 7px;
+  font-size:22px;
 }
 
-button{
-  width:100%;
+.hero p{
+  margin:0;
+  line-height:1.5;
+}
+
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.action{
   border:0;
-  border-radius:18px;
-  padding:16px;
-  margin-top:12px;
-  background:linear-gradient(90deg,#9a67d6,#ed91bc);
-  color:white;
-  font-weight:bold;
-  font-size:16px;
+  border-radius:22px;
+  padding:20px 14px;
+  text-align:left;
+  cursor:pointer;
+  background:#eee2ff;
+  color:#6742a0;
 }
 
-input{
-  width:100%;
-  padding:15px;
-  border:1px solid #d6c0eb;
-  border-radius:15px;
-  box-sizing:border-box;
-  font-size:16px;
-  margin:8px 0;
+.action.join{
+  background:#ffdcec;
+  color:#bd4f84;
+}
+
+.action .emoji{
+  font-size:28px;
+}
+
+.action strong{
+  display:block;
+  font-size:18px;
+  margin:10px 0 5px;
+}
+
+.action span{
+  font-size:12px;
+}
+
+.privacy{
+  font-size:13px;
+  line-height:1.45;
+}
+
+.privacy strong{
+  display:block;
+  font-size:15px;
+  margin-bottom:3px;
 }
 
 .screen{
   display:none;
 }
 
-.active{
+.screen.active{
   display:block;
+}
+
+.back{
+  border:0;
+  background:#ffffff66;
+  padding:10px 14px;
+  border-radius:14px;
+  color:#5b3b82;
+  cursor:pointer;
+}
+
+label{
+  display:block;
+  font-weight:700;
+  margin:18px 0 8px;
+}
+
+input{
+  width:100%;
+  padding:15px;
+  border-radius:16px;
+  border:1px solid #d6c0eb;
+  background:#fff;
+  font-size:16px;
+  outline:none;
+}
+
+.primary{
+  width:100%;
+  border:0;
+  border-radius:18px;
+  padding:16px;
+  margin-top:18px;
+  background:linear-gradient(90deg,#9a67d6,#ed91bc);
+  color:#fff;
+  font-weight:800;
+  font-size:16px;
+  cursor:pointer;
 }
 
 .code{
   text-align:center;
-  font-size:32px;
-  font-weight:bold;
-  padding:20px;
+  font-size:34px;
+  letter-spacing:4px;
+  font-weight:900;
   background:#f7efff;
+  padding:20px;
   border-radius:20px;
-  margin-top:15px;
+  margin-top:20px;
 }
 
-.message{
+.muted{
+  font-size:12px;
+  color:#806d92;
+}
+
+.result{
   text-align:center;
-  margin-top:15px;
 }
 
-.back{
-  background:#ffffff66;
-  color:#5b3b82;
+.finger{
+  font-size:76px;
+  margin:15px;
+}
+
+.result h2{
+  font-size:30px;
+  margin:8px 0;
+}
+
+.green{
+  color:#2c8a4a;
+}
+
+.yellow{
+  color:#a47b00;
+}
+
+.red{
+  color:#bd3d62;
+}
+
+.notice{
+  font-size:12px;
+  color:#806d92;
+  line-height:1.45;
+  margin-top:20px;
+}
+
+.countdown{
+  font-size:72px;
+  font-weight:900;
+  margin:25px 0;
+  color:#9a67d6;
+}
+
+.analyzing{
+  font-size:22px;
+  font-weight:800;
+  margin:25px 0;
+  animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:.45}
+  50%{opacity:1}
+}
+
+.resultEmoji{
+  font-size:70px;
+  margin:15px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="phone">
 
-<div class="logo">Lovesick 💗</div>
+  <!-- HOME -->
+  <section id="home" class="screen active">
 
+    <div class="top">
+      <div class="icon">☰</div>
+      <div class="icon">♡</div>
+    </div>
 
-<!-- HOME -->
+    <div class="brand">
+      <small>Welcome to</small>
+      <h1>Loves<span>ick</span></h1>
+      <b>DETECTOR</b>
+      <div class="tag">Put Your Finger on the Truth</div>
+    </div>
 
-<div id="home" class="screen active">
+    <div class="card hero">
+      <h2>The Truth. Anywhere. 💗</h2>
+      <p>
+        Connect with someone, ask a question and experience the Lovesick test together — even when you're miles apart.
+      </p>
+    </div>
 
-<div class="card">
+    <div class="actions">
 
-<h2>The Truth. Anywhere. 💗</h2>
+      <button class="action" onclick="show('create')">
+        <div class="emoji">＋</div>
+        <strong>Create Test</strong>
+        <span>Create a private test and invite someone.</span>
+      </button>
 
-<p>
-Connect with someone, ask a question and experience the Lovesick test together — even when you're miles apart.
-</p>
+      <button class="action join" onclick="show('join')">
+        <div class="emoji">🔗</div>
+        <strong>Join Test</strong>
+        <span>Enter a test code to join.</span>
+      </button>
 
-<button onclick="show('create')">
-＋ Create Test
-</button>
+    </div>
 
-<button onclick="show('join')">
-🔗 Join Test
-</button>
+    <div class="card privacy">
+      <strong>🔒 Your privacy is our priority</strong>
+      Tests are designed to be private between you and your test partner.
+    </div>
 
-</div>
-
-<div class="card">
-🔒 Tests are private and secure. Results are for entertainment and are not scientific proof of truth or deception.
-</div>
-
-</div>
-
-
-<!-- CREATE TEST -->
-
-<div id="create" class="screen">
-
-<button class="back" onclick="show('home')">
-← Back
-</button>
-
-<div class="card">
-
-<h2>Create a Test 💕</h2>
-
-<p>Enter your question.</p>
-
-<input
-id="question"
-placeholder="e.g. Do you sincerely love me?"
->
-
-<button onclick="createTest()">
-Create Private Test
-</button>
-
-<div id="created" style="display:none">
-
-<div class="code" id="roomCode"></div>
-
-<p class="message">
-Send this code to your test partner.
-</p>
-
-<button onclick="shareCode()">
-Share Code 📤
-</button>
-
-</div>
-
-<p id="createMessage" class="message"></p>
-
-</div>
-
-</div>
+  </section>
 
 
-<!-- JOIN TEST -->
+  <!-- CREATE -->
+  <section id="create" class="screen">
 
-<div id="join" class="screen">
+    <button class="back" onclick="show('home')">← Back</button>
 
-<button class="back" onclick="show('home')">
-← Back
-</button>
+    <div class="card">
 
-<div class="card">
+      <h2>Create a Test 💕</h2>
 
-<h2>Join a Test 🔗</h2>
+      <p>Start a private room and invite your test partner.</p>
 
-<p>Enter the code your partner sent you.</p>
+      <label>Question</label>
 
-<input
-id="joinCode"
-placeholder="KELI-4821"
-maxlength="9"
->
+      <input
+        id="question"
+        placeholder="e.g. Do you sincerely love me?"
+      >
 
-<button onclick="joinTest()">
-Join Test
-</button>
+      <button class="primary" onclick="makeCode()">
+        Create Private Test
+      </button>
 
-<p id="joinMessage" class="message"></p>
+      <div id="created" style="display:none">
 
-</div>
+        <div class="code" id="code"></div>
 
-</div>
+        <p style="text-align:center">
+          Share this code with your test partner.
+        </p>
 
+        <button class="primary" onclick="shareCode()">
+          Share Code
+        </button>
 
-<!-- TEST ROOM -->
+      </div>
 
-<div id="test" class="screen">
+    </div>
 
-<div class="card">
-
-<h2>Private Test Room 💗</h2>
-
-<p id="questionDisplay"></p>
-
-<div style="font-size:70px;text-align:center">
-☝🏽
-</div>
-
-<p style="text-align:center">
-Place your finger in the test area and keep still.
-</p>
-
-<button onclick="runTest()">
-Start Test
-</button>
-
-</div>
-
-</div>
+  </section>
 
 
-<!-- RESULT -->
+  <!-- JOIN -->
+  <section id="join" class="screen">
 
-<div id="result" class="screen">
+    <button class="back" onclick="show('home')">← Back</button>
 
-<div class="card" style="text-align:center">
+    <div class="card">
 
-<div style="font-size:70px">
-💗
-</div>
+      <h2>Join a Test 🔗</h2>
 
-<h2>LIKELY TRUE</h2>
+      <p>Enter the code your test partner sent you.</p>
 
-<p>
-This is an entertainment/experimental result and is not a scientific lie detector.
-</p>
+      <label>Test Code</label>
 
-<button onclick="show('home')">
-Done
-</button>
+      <input
+        id="joinCode"
+        placeholder="KELI-4821"
+        maxlength="9"
+      >
 
-</div>
+      <button class="primary" onclick="joinRoom()">
+        Join Test
+      </button>
 
-</div>
+      <p id="joinMsg" class="muted"></p>
+
+    </div>
+
+  </section>
+
+
+  <!-- TEST -->
+  <section id="test" class="screen">
+
+    <button class="back" onclick="show('home')">← Home</button>
+
+    <div class="card result">
+
+      <p class="muted">PRIVATE TEST ROOM</p>
+
+      <h2 id="testQuestion">Are you ready?</h2>
+
+      <div class="finger">☝🏽</div>
+
+      <p id="instruction">
+        Place your finger in the test area and keep still.
+      </p>
+
+      <div id="countdownArea">
+
+        <button class="primary" onclick="runTest()">
+          Start Test
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- RESULT -->
+  <section id="result" class="screen">
+
+    <div class="card result">
+
+      <p class="muted">RESULT READY</p>
+
+      <div class="resultEmoji" id="resultEmoji">💗</div>
+
+      <h2 id="resultText" class="green">
+        LIKELY TRUE
+      </h2>
+
+      <p id="resultDescription">
+        The test has completed.
+      </p>
+
+      <button class="primary" onclick="finishGame()">
+        Done
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- ABOUT -->
+  <section id="about" class="screen">
+
+    <button class="back" onclick="show('home')">← Home</button>
+
+    <div class="card">
+
+      <h2>About Your Result 💗</h2>
+
+      <p class="notice">
+        Lovesick Detector is an entertainment and experimental experience.
+        Results are not scientific proof of whether someone is telling the truth or being deceptive.
+      </p>
+
+      <button class="primary" onclick="show('home')">
+        Back Home
+      </button>
+
+    </div>
+
+  </section>
 
 </div>
 
 
 <script>
 
-/* =========================
-SUPABASE CONNECTION
-========================= */
+function show(id){
 
-const SUPABASE_URL =
-"https://uegojyjuaaqkaaazagag.supabase.co";
+  document.querySelectorAll('.screen')
+    .forEach(s => s.classList.remove('active'));
 
-const SUPABASE_KEY =
-"sb_publishable_b9JIbTq2NcY9iKg_KQ0yxg_QAOiDftX";
-
-const supabaseClient =
-supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
-
-
-/* =========================
-PAGE NAVIGATION
-========================= */
-
-function show(page){
-
-document
-.querySelectorAll(".screen")
-.forEach(x => x.classList.remove("active"));
-
-document
-.getElementById(page)
-.classList.add("active");
-
+  document.getElementById(id)
+    .classList.add('active');
 }
 
 
-/* =========================
-CREATE TEST
-========================= */
+function makeCode(){
 
-async function createTest(){
+  const q =
+    document.getElementById('question')
+      .value.trim();
 
-const question =
-document
-.getElementById("question")
-.value
-.trim();
+  if(!q){
 
-const message =
-document.getElementById("createMessage");
+    alert('Please enter a question first.');
 
-if(!question){
+    return;
+  }
 
-message.textContent =
-"Please enter a question first.";
+  const n =
+    Math.floor(1000 + Math.random() * 9000);
 
-return;
+  const generatedCode =
+    'KELI-' + n;
 
+  document.getElementById('code')
+    .textContent = generatedCode;
+
+  document.getElementById('created')
+    .style.display = 'block';
 }
 
-
-const code =
-"KELI-" +
-Math.floor(
-1000 + Math.random() * 9000
-);
-
-
-const {data,error} =
-await supabaseClient
-.from("test_rooms")
-.insert({
-
-code:code,
-question:question
-
-})
-.select()
-.single();
-
-
-if(error){
-
-console.error(error);
-
-message.textContent =
-"Couldn't create the test. Please try again.";
-
-return;
-
-}
-
-
-document
-.getElementById("roomCode")
-.textContent =
-data.code;
-
-document
-.getElementById("created")
-.style.display =
-"block";
-
-message.textContent =
-"Your private test is ready! 💗";
-
-}
-
-
-/* =========================
-SHARE
-========================= */
 
 async function shareCode(){
 
-const code =
-document
-.getElementById("roomCode")
-.textContent;
+  const code =
+    document.getElementById('code')
+      .textContent;
 
-const text =
-"Join my Lovesick test 💗\n\n" +
-"Open Lovesick and tap Join Test.\n" +
-"Use code: " + code;
+  const text =
+    `Join my Lovesick Detector test 💗
+Use code: ${code}`;
 
+  if(navigator.share){
 
-if(navigator.share){
+    try{
 
-try{
+      await navigator.share({
+        title:'Lovesick Detector',
+        text:text
+      });
 
-await navigator.share({
+    }catch(e){}
 
-title:"Lovesick Test",
-text:text
+  }else{
 
-});
+    await navigator.clipboard.writeText(text);
 
-}catch(e){}
+    alert('Invitation copied!');
 
-}
-
-else{
-
-await navigator.clipboard.writeText(text);
-
-alert("Invitation copied!");
-
-}
-
+  }
 }
 
 
-/* =========================
-JOIN TEST
-========================= */
+function joinRoom(){
 
-async function joinTest(){
+  const code =
+    document.getElementById('joinCode')
+      .value.trim()
+      .toUpperCase();
 
-const code =
-document
-.getElementById("joinCode")
-.value
-.trim()
-.toUpperCase();
+  if(!/^KELI-\d{4}$/.test(code)){
 
-const message =
-document
-.getElementById("joinMessage");
+    document.getElementById('joinMsg')
+      .textContent =
+      'Please enter a code like KELI-4821.';
 
+    return;
+  }
 
-if(!/^KELI-\d{4}$/.test(code)){
+  document.getElementById('joinMsg')
+    .textContent =
+    'Connected to test room! 💗';
 
-message.textContent =
-"Enter a code like KELI-4821.";
+  setTimeout(() => {
 
-return;
+    document.getElementById('testQuestion')
+      .textContent =
+      'Your test partner is ready.';
 
+    show('test');
+
+  },700);
 }
 
-
-const {data,error} =
-await supabaseClient
-.from("test_rooms")
-.select("question")
-.eq("code",code)
-.maybeSingle();
-
-
-if(error){
-
-console.error(error);
-
-message.textContent =
-"Something went wrong. Please try again.";
-
-return;
-
-}
-
-
-if(!data){
-
-message.textContent =
-"Test not found. Check the code.";
-
-return;
-
-}
-
-
-document
-.getElementById("questionDisplay")
-.textContent =
-data.question;
-
-show("test");
-
-}
-
-
-/* =========================
-TEST RESULT
-========================= */
 
 function runTest(){
 
-setTimeout(function(){
+  const area =
+    document.getElementById('countdownArea');
 
-show("result");
+  const instruction =
+    document.getElementById('instruction');
 
-},2000);
+  let number = 3;
+
+  area.innerHTML =
+    `<div class="countdown">${number}</div>`;
+
+  instruction.textContent =
+    'Get ready… keep your finger still.';
+
+  const timer =
+    setInterval(() => {
+
+      number--;
+
+      if(number > 0){
+
+        area.innerHTML =
+          `<div class="countdown">${number}</div>`;
+
+      }else{
+
+        clearInterval(timer);
+
+        instruction.textContent =
+          'Reading signals…';
+
+        area.innerHTML =
+          `<div class="analyzing">ANALYZING… 💗</div>`;
+
+        setTimeout(showRandomResult,2500);
+
+      }
+
+    },1000);
+}
+
+
+function showRandomResult(){
+
+  const results = [
+
+    {
+      text:'LIKELY TRUE',
+      emoji:'💚',
+      className:'green',
+      description:'The result suggests the answer may be true.'
+    },
+
+    {
+      text:'UNCERTAIN',
+      emoji:'💛',
+      className:'yellow',
+      description:'The result was not clear enough to make a strong indication.'
+    },
+
+    {
+      text:'LIKELY DECEPTIVE',
+      emoji:'❤️',
+      className:'red',
+      description:'The result suggests the answer may not be completely truthful.'
+    }
+
+  ];
+
+  const result =
+    results[
+      Math.floor(Math.random() * results.length)
+    ];
+
+  const resultText =
+    document.getElementById('resultText');
+
+  resultText.textContent =
+    result.text;
+
+  resultText.className =
+    result.className;
+
+  document.getElementById('resultEmoji')
+    .textContent =
+    result.emoji;
+
+  document.getElementById('resultDescription')
+    .textContent =
+    result.description;
+
+  show('result');
+}
+
+
+function finishGame(){
+
+  show('about');
 
 }
 
@@ -496,3 +672,4 @@ show("result");
 
 </body>
 </html>
+`
