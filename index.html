@@ -155,6 +155,52 @@ body:after{
   z-index:1;
 }
 
+/* LOVE STICK */
+
+.love-stick{
+  padding:14px;
+  overflow:hidden;
+  background:linear-gradient(145deg,#fff7fc,#f4eaff);
+}
+
+.love-stick-photo{
+  width:100%;
+  height:210px;
+  border-radius:23px;
+  overflow:hidden;
+  background:#f7e8f4;
+}
+
+.love-stick-photo img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+}
+
+.love-stick-text{
+  padding:17px 7px 5px;
+}
+
+.love-stick-text span{
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+  color:#b45b92;
+}
+
+.love-stick-text h2{
+  margin:7px 0 5px;
+  font-size:21px;
+}
+
+.love-stick-text p{
+  margin:0;
+  font-size:13px;
+  line-height:1.5;
+  color:#806b8d;
+}
+
 .actions{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -449,6 +495,23 @@ input:focus{
     <p>
       Ask the question you've been dying to ask and experience the Lovesick test together — even when you're miles apart.
     </p>
+  </div>
+
+  <!-- LOVE STICK -->
+  <div class="card love-stick">
+
+    <div class="love-stick-photo">
+      <img src="IMG_3374.png" alt="Lovesick Love Stick">
+    </div>
+
+    <div class="love-stick-text">
+      <span>💗 YOUR LOVE STICK</span>
+      <h2>Put your love to the test.</h2>
+      <p>
+        A little fun, a little drama, and maybe the truth you've been waiting for. 👀💕
+      </p>
+    </div>
+
   </div>
 
   <div class="actions">
@@ -848,4 +911,3 @@ function playAgain(){
 
 </body>
 </html>
-`
