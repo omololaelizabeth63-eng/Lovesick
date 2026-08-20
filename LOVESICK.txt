@@ -1,0 +1,8 @@
+LOVESICK v1
+This is a mobile-first working prototype.
+1. Open index.html in a browser, or deploy the folder to Netlify.
+2. Create a Test generates a six-character code.
+3. Questions and answers are stored locally in the browser.
+4. For real two-phone syncing, the next step is connecting a hosted database/backend.
+
+Netlify supports publishing by dragging and dropping a project folder at https://app.netlify.com/drop.
